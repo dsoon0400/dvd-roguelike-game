@@ -40,4 +40,5 @@ A browser-based arcade roguelike inspired by the classic DVD screensaver. Guide 
 
 ---
 
-Enjoy the hunt for the perfect corner! All feedback is welcome!
+Online Demo: https://dsoon0400.github.io/dvd-roguelike-game/
+All feedback is welcome!
