@@ -40,5 +40,5 @@ A browser-based arcade roguelike inspired by the classic DVD screensaver. Guide 
 
 ---
 
-Online Demo: https://dsoon0400.github.io/dvd-roguelike-game/
+Online Demo: https://dsoon0400.github.io/dvd-roguelike-game/ | 
 All feedback is welcome!
