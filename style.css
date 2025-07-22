@@ -1,0 +1,214 @@
+:root {
+    --primary-color: #00FFFF; /* Cyan */
+    --bg-color: #111;
+    --container-bg: #000;
+    --border-color: #444;
+    --text-color: #FFF;
+    --ready-color: #00FF00;
+    --cooldown-color: #FF4444;
+}
+
+body {
+    margin: 0;
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Consolas', 'Menlo', monospace;
+    color: var(--text-color);
+    overflow: hidden;
+}
+
+#game-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+#screen {
+    width: 600px;
+    height: 400px;
+    background-color: var(--container-bg);
+    border: 3px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+@keyframes screen-shake {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-2px, 2px); }
+    50% { transform: translate(2px, -2px); }
+    75% { transform: translate(-2px, -2px); }
+}
+
+.shake {
+    animation: screen-shake 0.15s ease-in-out;
+}
+
+#logo {
+    position: absolute;
+    font-size: 28px;
+    font-weight: bold;
+    padding: 0px 0px;
+    user-select: none;
+    color: var(--primary-color);
+    transition: transform 0.1s ease, color 0.3s ease;
+    will-change: transform, left, top;
+}
+
+@keyframes nudge-animation {
+    from {
+        transform: scale(0);
+        opacity: 0.7;
+    }
+    to {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+#nudge-effect {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    transform: scale(0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+#nudge-effect.active {
+    animation: nudge-animation 0.4s ease-out;
+}
+
+#ui-panel {
+    display: flex;
+    gap: 10px;
+    width: 600px;
+}
+
+.ui-box {
+    flex: 1;
+    background-color: var(--container-bg);
+    border: 2px solid var(--border-color);
+    padding: 10px;
+    text-align: center;
+}
+
+.ui-box h3 {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+    color: var(--primary-color);
+}
+
+.ui-box p {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#nudge-status-display.ready { color: var(--ready-color); }
+#nudge-status-display.cooldown { color: var(--cooldown-color); }
+
+/* Modal Styles */
+#modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 100;
+}
+
+#modal-overlay.visible {
+    opacity: 1;
+    pointer-events: all;
+}
+
+#modal-content {
+    background-color: var(--container-bg);
+    border: 2px solid var(--primary-color);
+    padding: 30px;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 0 20px var(--primary-color);
+}
+
+#modal-content h2 {
+    margin-top: 0;
+}
+
+#modal-content button {
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    margin-top: 15px;
+}
+
+#modal-content button:hover {
+    transform: scale(1.05);
+}
+
+#upgrade-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.upgrade-button {
+    background-color: var(--bg-color) !important;
+    color: var(--text-color) !important;
+    border: 2px solid var(--border-color) !important;
+    text-align: left;
+    padding: 15px !important;
+}
+
+.upgrade-button:hover {
+    border-color: var(--primary-color) !important;
+}
+
+.upgrade-button h4 {
+    margin: 0 0 5px 0;
+    color: var(--primary-color);
+}
+.upgrade-button p {
+    margin: 0;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+
+#upgrade-log {
+    width: 180px;
+    min-height: 300px;
+    max-height: 400px;
+    background: var(--container-bg);
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    font-size: 15px;
+    font-family: inherit;
+    padding: 12px 10px;
+    margin-right: 18px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-sizing: border-box;
+}
