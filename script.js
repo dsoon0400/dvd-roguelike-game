@@ -81,12 +81,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- UPGRADE DEFINITIONS ---
     const allUpgrades = [
-        { id: 'speed_down', title: 'Run It Back', desc: 'Logo moves 20% slower. Easier to predict.', apply: (gs) => gs.upgrades.speed *= 0.8 },
+        { id: 'speed_down', title: 'Run It Back', desc: 'Logo moves 50% slower. Easier to predict.', apply: (gs) => gs.upgrades.speed *= 0.5 },
         { id: 'speed_up', title: 'BOOST!', desc: 'Logo moves 25% faster. More chances to hit corners, but harder to control.', apply: (gs) => gs.upgrades.speed *= 1.25 },
         { id: 'nudge_force_up', title: 'Stronger Nudge', desc: 'Increases Nudge force by 20%.', apply: (gs) => gs.upgrades.nudgeForce *= 1.20 },
         { id: 'nudge_cooldown_down', title: 'Faster Nudge', desc: 'Reduces Nudge cooldown by 25%.', apply: (gs) => gs.upgrades.nudgeCooldown *= 0.75 },
-        { id: 'logo_size_up', title: 'Bigger Logo', desc: 'Increases logo size by 20%. Easier to hit corners.', apply: (gs) => gs.upgrades.logoSize *= 1.20 },
-        { id: 'more_time', title: 'Extra Time', desc: 'Gain 15 extra seconds during the round.', apply: (gs) => { gs.upgrades.moreTimeUpgrades += 1; } },
+        { id: 'logo_size_up', title: 'Smaller Logo', desc: 'Decreases logo size by 10%. More precise.', apply: (gs) => gs.upgrades.logoSize *= 0.90 },
+        { id: 'more_time', title: 'Extra Time', desc: 'Gain 5 extra seconds during the round.', apply: (gs) => { gs.upgrades.moreTimeUpgrades += 1; } },
         { id: 'corner_magnet', title: 'Corner Magnetism', desc: 'Corners now gain a slight magnetic pull.', apply: (gs) => gs.upgrades.cornerMagnetism += 0.5 },
     ];
     
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         gameState.cornersHitThisRound = 0;
         gameState.x = Math.random() * (screen.clientWidth - logo.clientWidth);
         gameState.y = Math.random() * (screen.clientHeight - logo.clientHeight);
-        gameState.timer = 30 + 15 * (gameState.upgrades.moreTimeUpgrades || 0); // Base time + 15s per upgrade
+        gameState.timer = 30 + 5 * (gameState.upgrades.moreTimeUpgrades || 0); // Base time + 15s per upgrade
         
         updateUI();
         
@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function getCornersGoal() {
-        return Math.floor(0 + gameState.round * 1.25);
+        return Math.floor(0 + gameState.round * 1.5);
     }
     
     function gameLoop(timestamp) {
@@ -337,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Add cooldown for corner hits
         if (isCorner) {
             const now = performance.now();
-            if (now - gameState.lastCornerHitTime >= 500) {
+            if (now - gameState.lastCornerHitTime >= 250) {
                 handleCornerHit();
             }
         }
