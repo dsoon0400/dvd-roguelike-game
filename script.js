@@ -46,10 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Upgrades!
             upgrades: {
-                speed: 1.0,
-                nudgeForce: 1.0,
+                speed: 2.0,
+                nudgeForce: 1.5,
                 nudgeCooldown: 3.0,
-                logoSize: 0.9,
+                logoSize: 1.0,
                 cornerMagnetism: 0,
                 moreTimeUpgrades: 0, // Track how many times the upgrade was picked
             },
@@ -114,7 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function startGame() {
         resetGameState();
-        setLogoColor(getRandomPastelColor());
         modalOverlay.classList.remove('visible');
         startRound();
     }
@@ -146,9 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleCornerHit() {
-        // Flicker effect
-        screen.classList.add('flicker');
-        setTimeout(() => screen.classList.remove('flicker'), 180);
         gameState.lastCornerHitTime = performance.now();
         console.log("CORNER HIT!");
         const readyColor = getComputedStyle(document.documentElement).getPropertyValue('--ready-color');
@@ -261,24 +257,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function getCornersGoal() {
-        return Math.floor(0 + Math.pow(gameState.round, 1.2));
+        return Math.floor(0 + gameState.round * 1.5);
     }
     
-    // Utility: Generate a random pastel color (less saturated, more like the real DVD logo)
-    function getRandomPastelColor() {
-        // HSL: lower saturation, higher lightness
-        const hue = Math.floor(Math.random() * 360);
-        return `hsl(${hue}, 60%, 65%)`;
-    }
-
-    function setLogoColor(color) {
-        // Only update the logo's border and text, not the global --primary-color
-        logo.style.boxShadow = `0 0 0 4px ${color}, 0 4px 24px #000a`;
-        logo.style.borderColor = color;
-        logo.querySelector('.dvd-main').style.color = color;
-        logo.querySelector('.dvd-video').style.color = color;
-    }
-
     function gameLoop(timestamp) {
         if (!gameState.isRunning) return;
 
@@ -359,10 +340,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (now - gameState.lastCornerHitTime >= 250) {
                 handleCornerHit();
             }
-        }
-        // Change color on bounce
-        if (hitWall || isCorner) {
-            setLogoColor(getRandomPastelColor());
         }
 
         // --- Render ---
