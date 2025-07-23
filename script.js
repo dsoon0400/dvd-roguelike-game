@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 speed: 2.0,
                 nudgeForce: 1.5,
                 nudgeCooldown: 3.0,
-                logoSize: 1.0,
+                logoSize: 1.25,
                 cornerMagnetism: 0,
                 moreTimeUpgrades: 0, // Track how many times the upgrade was picked
             },
@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function getCornersGoal() {
-        return Math.floor(0 + gameState.round * 1.5);
+        return Math.floor(0 + Math.pow(gameState.round, 1.4));
     }
     
     function gameLoop(timestamp) {
